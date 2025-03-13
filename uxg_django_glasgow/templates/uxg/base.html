@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <title>
+            UxG - 
+            {% block title_block %}
+            {% endblock %}
+        </title>
+    </head>
+
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'uxg:home' %}">Home</a></li>
+                <li><a href="{% url 'uxg:communities' %}">Communities</a></li>
+                <li><h1>UxG</h1></li>
+                <li><a href="{% url 'uxg:signup' %}">Sign Up</a></li>
+                <li><a href="{% url 'uxg:login' %}">Login</a></li>
+                <li><img src="profilePic.jpg" alt="Profile picture" /></li>
+            </ul>
+        </nav>
+        <div>
+            {% block body_block %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
