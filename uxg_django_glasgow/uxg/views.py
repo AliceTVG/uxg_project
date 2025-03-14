@@ -6,6 +6,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 
+
+def community_page(request):
+    return render(request, 'uxg/communities.html')
+
+def community_detail_page(request, community_id):
+    """Render the frontend page for a specific community."""
+    community = get_object_or_404(Community, id=community_id)
+    return render(request, 'uxg/community_detail.html', {'community': community})
+
 @csrf_exempt
 def community_list(request):
     """Handles fetching all communities and creating new ones."""
@@ -44,7 +53,3 @@ def community_detail(request, community_id):
         'created_at': community.created_at
     }
     return JsonResponse(data)
-
-def community_page(request):
-    """Render the frontend page for displaying communities."""
-    return render(request, 'uxg/communities.html')
