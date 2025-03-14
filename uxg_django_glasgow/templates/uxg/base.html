@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/uxg.css' %}">
+        <title>
+            UxG -
+            {% block title_block %}
+            {% endblock %}
+        </title>
+    </head>
+ 
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'uxg:index' %}">Home</a></li>
+                <li><h1>UxG</h1></li>
+                
+
+
+
+
+                
+                <li><img src="profilePic.jpg" alt="Profile picture" /></li>
+            </ul>
+        </nav>
+        <div>
+            {% block body_block %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
+ 
