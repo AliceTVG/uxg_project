@@ -1,0 +1,16 @@
+{% extends 'uxg/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Create New Post
+{% endblock %}
+{% block body_block %}
+<div class="container">
+    <h2>Create New Post</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send</button>
+    </form>
+</div>
+{% endblock %}

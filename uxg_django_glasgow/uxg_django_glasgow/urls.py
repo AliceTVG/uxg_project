@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 from uxg import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
+    path("", views.index, name="index"),
+    path('uxg/', include('uxg.urls')),
     path('admin/', admin.site.urls),
     path('api/communities/', views.community_list, name='community-list'),
     path('api/communities/<int:community_id>/', views.community_detail, name='community-detail'),
     path('communities/', views.community_page, name='community-page'),
     path('communities/<int:community_id>/', views.community_detail_page, name='community-detail-page'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
