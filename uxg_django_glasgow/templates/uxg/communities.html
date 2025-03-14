@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communities</title>
+</head>
+<body>
+    <h1>Community List</h1>
+
+    <!-- Community List -->
+    <ul id="community-list"></ul>
+
+    <!-- Community Creation Form -->
+    <h2>Create a New Community</h2>
+    <form id="community-form">
+        <input type="text" id="community-name" placeholder="Community Name" required>
+        <input type="text" id="community-description" placeholder="Description" required>
+        <button type="submit">Create</button>
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+        async function loadCommunities() {
+            const response = await fetch('/api/communities/');
+            const communities = await response.json();
+            const list = document.getElementById("community-list");
+
+            list.innerHTML = ""; // Clear list before reloading
+
+            communities.forEach(community => {
+                let li = document.createElement("li");
+                li.textContent = `${community.name}: ${community.description}`;
+                list.appendChild(li);
+            });
+        }
+
+        async function createCommunity(event) {
+            event.preventDefault();  // Prevent form submission from reloading the page
+
+            const name = document.getElementById("community-name").value;
+            const description = document.getElementById("community-description").value;
+            const messageBox = document.getElementById("message");
+
+            const response = await fetch('/api/communities/', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, description })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                messageBox.textContent = "Community created successfully!";
+                messageBox.style.color = "green";
+                loadCommunities();  // Reload community list
+            } else {
+                messageBox.textContent = result.error;
+                messageBox.style.color = "red";
+            }
+        }
+
+        document.getElementById("community-form").addEventListener("submit", createCommunity);
+
+        // Load communities when page loads
+        loadCommunities();
+    </script>
+</body>
+</html>

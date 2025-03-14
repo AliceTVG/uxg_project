@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from uxg import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/communities/', views.community_list, name='community-list'),
+    path('api/communities/<int:community_id>/', views.community_detail, name='community-detail'),
+]
+
+urlpatterns += [
+    path('communities/', views.community_page, name='community-page'),
 ]
