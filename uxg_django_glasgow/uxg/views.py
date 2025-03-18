@@ -72,3 +72,12 @@ def community_detail(request, community_id):
         'created_at': community.created_at
     }
     return JsonResponse(data)
+
+def signup(request):
+    return render(request, "uxg/signup.html")
+
+def login(request):
+    return render(request, "uxg/login.html")
+
+def profile(request):
+    return render(request, "uxg/profile.html")
