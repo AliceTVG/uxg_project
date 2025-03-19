@@ -1,0 +1,13 @@
+{% extends 'uxg/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ community.name }}
+{% endblock %}
+
+{% block body_block %}
+    <h1 style="font-size: 2.5em;">{{ community.name }}</h1>
+    <p><strong>Description:</strong> {{ community.description }}</p>
+    <p><strong>Created At:</strong> {{ community.created_at }}</p>
+{% endblock %}

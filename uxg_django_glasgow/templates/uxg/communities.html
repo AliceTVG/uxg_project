@@ -1,0 +1,110 @@
+{% extends 'uxg/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    Communities
+{% endblock %}
+
+{% block body_block %}
+    <h1>Community List</h1>
+
+    <!-- Community List -->
+    <ul id="community-list"></ul>
+
+    <!-- Community Creation Form -->
+    <h2>Create a New Community</h2>
+    <form id="community-form">
+        <input type="text" id="community-name" placeholder="Community Name" required>
+        <input type="text" id="community-description" placeholder="Description" required>
+        <button type="submit">Create</button>
+    </form> 
+    <p id="message"></p>
+
+    <script>
+        // Get the elements that I will populate
+        const communityList = document.getElementById("community-list");
+        const communityForm = document.getElementById("community-form");
+        const messageBox = document.getElementById("message");
+
+        // API Endpoints
+        const API_BASE = "/api/communities/";
+
+        async function loadCommunities() {
+            try {
+                const response = await fetch(API_BASE);
+                if (!response.ok) throw new Error("Failed to fetch communities");
+
+                const communities = await response.json();
+                renderCommunities(communities);
+            } catch (error) {
+                handleError("Failed to load communities.", error);
+            }
+        }
+
+        function renderCommunities(communities) {
+            communityList.innerHTML = ""; // Clear existing list
+
+            communities.forEach(({ id, name, description }) => {
+                const li = document.createElement("li");
+
+                const link = document.createElement("a");
+                link.href = `/communities/${id}/`;
+                link.textContent = name;
+                link.style.fontWeight = "bold";
+                link.style.color = "blue";
+
+                li.appendChild(link);
+                li.appendChild(document.createTextNode(` - ${description}`));
+                communityList.appendChild(li);
+            });
+        }
+
+        async function createCommunity(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const name = document.getElementById("community-name").value.trim();
+            const description = document.getElementById("community-description").value.trim();
+
+            if (!name || !description) {
+                displayMessage("Both fields are required.", "red");
+                return;
+            }
+
+            try {
+                const response = await fetch(API_BASE, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, description })
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayMessage("Community created successfully!", "green");
+                    communityForm.reset(); // Clear form
+                    loadCommunities(); // Refresh community list
+                } else {
+                    displayMessage(result.error, "red");
+                }
+            } catch (error) {
+                handleError("Failed to create community.", error);
+            }
+        }
+
+        function displayMessage(text, color) {
+            messageBox.textContent = text;
+            messageBox.style.color = color;
+        }
+
+        function handleError(userMessage, error) {
+            console.error(error);
+            displayMessage(userMessage, "red");
+        }
+
+        communityForm.addEventListener("submit", createCommunity);
+
+        // Initial Load
+        loadCommunities();
+    </script>
+{% endblock %}

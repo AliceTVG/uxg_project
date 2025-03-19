@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/uxg.css' %}">
+        <script src="{% static 'js/uxg.js' %}"></script>
+        <title>
+            UxG -
+            {% block title_block %}
+            {% endblock %}
+        </title>
+    </head>
+ 
+    <body>
+        <script>
+            var profile = "{% url 'uxg:profile' %}";
+        </script>
+
+        <nav id="nav_bar">
+            <ul id="nav_list">
+                <li><a href="{% url 'uxg:index' %}">Home</a></li>
+                <li><a href="{% url 'uxg:communities' %}">Communities</a></li>
+            </ul>
+                
+                <h1 id="nav_title">UxG</h1>
+            <div id="nav_list_right">
+                <a href="{% url 'uxg:signup' %}">Sign Up</a>
+                <a href="{% url 'uxg:login' %}">Login</a>
+                <img id="nav_profile_pic" onclick="redirectToProfile()" src="profilePic.jpg" alt="Profile picture" />
+            </div>
+        </nav>
+
+        <div id="container">
+            {% block body_block %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
+ 

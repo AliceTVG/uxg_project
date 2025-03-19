@@ -1,0 +1,38 @@
+{% extends 'uxg/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Profile
+{% endblock %}
+
+{% block body_block %}
+<div id="Profile">
+
+</div>
+
+<div id="bio">
+    <h2>Bio:</h2>
+    <p id="bio_text">Tell people about yourself.</p>
+    <button id="bio_edit_button" onclick="editBio()">Edit</button>
+</div>
+
+<div id="bio_dialog_overlay">
+    <div id="bio_dialog_box">
+        <h3>Edit Bio</h3>
+        <textarea id="bio_text_editer" rows="5"></textarea>
+        <div id="bio_button_group">
+            <button id="bio_save_button" onclick="bioSaveText()">Save</button>
+            <button id="bio_cancel_button" onclick="bioCloseDialog()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="media">
+    <img src="media_1.jpg" alt="Media 1" id="media_1">
+    <img src="media_2.jpg" alt="Media 2" id="media_2">
+    <img src="media_3.jpg" alt="Media 3" id="media_3">
+    <img src="media_4.jpg" alt="Media 4" id="mdiea_4">
+    <img src="media_5.jpg" alt="Media 5" id="media_5">
+    <img src="media_6.jpg" alt="Media 6" id="media_6">
+</div>
+{% endblock %}
