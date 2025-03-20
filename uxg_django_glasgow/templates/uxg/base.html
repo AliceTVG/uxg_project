@@ -27,7 +27,7 @@
             <div id="nav_list_right">
                 <a href="{% url 'uxg:signup' %}">Sign Up</a>
                 <a href="{% url 'uxg:login' %}">Login</a>
-                <img id="nav_profile_pic" onclick="redirectToProfile()" src="profilePic.jpg" alt="Profile picture" />
+                <img id="nav_profile_pic" onclick="redirectToProfile()" src="{% static 'images/default_profile_pic.jpg' %}" alt="Profile picture" />
             </div>
         </nav>
 
