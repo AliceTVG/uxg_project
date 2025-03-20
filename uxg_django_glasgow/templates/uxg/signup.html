@@ -10,11 +10,17 @@
     {% if registered %}
         <strong>thank you for registering!</strong>
     {% else %}
-        <form id="user_form" method="post" action="{% url 'uxg:signup' %}" enctype="multipart/form-data">
+        <img id="nav_profile_pic" src="{{ MEDIA_URL }}profilePic.jpg" alt="Profile Picture">
+        <form id="user_form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+
             {% csrf_token %}
 
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
+            {% if user_form %}
+                {{ user_form.as_p }}
+            {% endif %}
+            {% if profile_form %}
+                {{ profile_form.as_p }}
+            {% endif %}
 
             <button type="submit">Sign Up</button>
         </form>
