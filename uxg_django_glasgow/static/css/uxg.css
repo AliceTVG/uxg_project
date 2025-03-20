@@ -175,6 +175,7 @@ button:hover {
     gap: 10px;
     max-width: 900px;
     margin: 0 auto;
+    padding-top: 10px;
 }
 
 #media img {
