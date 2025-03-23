@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.conf import settings
+from django.contrib.auth import logout
 
 
 import json
@@ -148,3 +149,6 @@ def profile(request):
 
     context = {'u_form': u_form, 'p_form': p_form}
     return render(request, 'uxg/profile.html', context)
+def logout_view(request):
+    logout(request)
+    return redirect('uxg:index')
