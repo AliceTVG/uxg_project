@@ -103,22 +103,24 @@ def login_view(request):
 
 def register(request):
     registered = False
-    
 
     if request.method == 'POST':
         user_form = UserRegisterForm(request.POST)
         profile_form = ProfileUpdateForm(request.POST, request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
+            user = user_form.save() 
+
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.bio = profile_form.cleaned_data['bio']
+            if 'image' in request.FILES:
+                profile.image = request.FILES['image']
             profile.save()
+
             registered = True
             messages.success(request, "You have successfully signed up!")
             return redirect('login')
-
     else:
         user_form = UserRegisterForm()
         profile_form = ProfileUpdateForm()
@@ -127,9 +129,7 @@ def register(request):
         'user_form': user_form,
         'profile_form': profile_form,
         'registered': registered,
-        'MEDIA_URL': settings.MEDIA_URL  
     })
-
 
 def profile(request):
     if request.method == 'POST':
