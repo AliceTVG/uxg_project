@@ -27,9 +27,22 @@
             <div id="nav_list_right">
                 <a href="{% url 'uxg:signup' %}">Sign Up</a>
                 <a href="{% url 'uxg:login' %}">Login</a>
-                <a href="{% url 'uxg:profile' %}">
-                    <img id="nav_profile_pic" src="{{ MEDIA_URL }}profilePic.jpg" alt="Profile Picture">
-                </a>
+                {% if user.is_authenticated %}
+                    {% if user.profile.avatar %}
+                        <a href="{% url 'uxg:profile' %}">
+                            <img id="nav_profile_pic" src="{{ user.profile.avatar.url }}" alt="Profile Picture">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'uxg:profile' %}">
+                            <img id="nav_profile_pic" src="{% static 'images/default.jpg' %}" alt="Default Avatar">
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'uxg:login' %}">
+                        <img id="nav_profile_pic" src="{% static 'images/default.jpg' %}" alt="Guest Avatar">
+                    </a>
+                {% endif %}
+               
                 
 
 

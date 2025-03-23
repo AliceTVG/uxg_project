@@ -10,7 +10,6 @@
     {% if registered %}
         <strong>thank you for registering!</strong>
     {% else %}
-        <img id="nav_profile_pic" src="{{ MEDIA_URL }}profilePic.jpg" alt="Profile Picture">
         <form id="user_form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
 
             {% csrf_token %}

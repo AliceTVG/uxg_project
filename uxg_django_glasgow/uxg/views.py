@@ -114,8 +114,8 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.bio = profile_form.cleaned_data['bio']
-            if 'image' in request.FILES:
-                profile.image = request.FILES['image']
+            if 'avatar' in request.FILES:
+                profile.avatar = request.FILES['avatar']
             profile.save()
 
             registered = True

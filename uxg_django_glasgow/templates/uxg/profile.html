@@ -12,7 +12,13 @@
 
 <div id="bio">
     <h2>Bio:</h2>
-    <p id="bio_text">Tell people about yourself.</p>
+    <p>
+        {% if user.profile.bio %}
+            {{ user.profile.bio }}
+        {% else %}
+            Tell people about yourself.
+        {% endif %}
+    </p>
     <button id="bio_edit_button" onclick="editBio()">Edit</button>
 </div>
 
