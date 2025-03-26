@@ -12,8 +12,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.conf import settings
 from django.contrib.auth import logout
-from .forms import BioForm
-
 
 
 import json
@@ -154,16 +152,3 @@ def profile(request):
 def logout_view(request):
     logout(request)
     return redirect('uxg:index')
-
-def edit_bio(request):
-    profile = request.user.profile
-
-    if request.method == 'POST':
-        form = BioForm(request.POST, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect('uxg:profile')
-    else:
-        form = BioForm(instance=profile)
-
-    return render(request, 'uxg/edit_bio.html', {'form': form})
