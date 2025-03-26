@@ -1,0 +1,16 @@
+{% extends 'uxg/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Edit Bio
+{% endblock %}
+
+{% block body_block %}
+    <h2>Edit Your Bio</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+        <a href="{% url 'uxg:profile' %}">Cancel</a>
+    </form>
+{% endblock %}
