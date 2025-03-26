@@ -1,9 +1,19 @@
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Post, Community
+from .models import Post, Community,Profile
 from .forms import PostForm
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
+from django.conf import settings
+from django.contrib.auth import logout
+
+
 import json
 
 def create_post(request):
@@ -21,8 +31,10 @@ def create_post(request):
 
 def index(request):
     posts = Post.objects.all().order_by("-created_at")  
-    context_dict = {}
-    context_dict['posts'] = posts
+    context_dict = {
+        'posts': posts,
+        'MEDIA_URL': settings.MEDIA_URL  
+    }
     return render(request, "uxg/index.html", context=context_dict)
 
 
@@ -73,11 +85,70 @@ def community_detail(request, community_id):
     }
     return JsonResponse(data)
 
-def signup(request):
-    return render(request, "uxg/signup.html")
 
-def login(request):
-    return render(request, "uxg/login.html")
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, f"Welcome back, {user.username}!")
+            return redirect('uxg:profile')
+
+  
+
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'uxg/login.html', {'form': form})
+
+def register(request):
+    registered = False
+
+    if request.method == 'POST':
+        user_form = UserRegisterForm(request.POST)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save() 
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.bio = profile_form.cleaned_data['bio']
+            if 'avatar' in request.FILES:
+                profile.avatar = request.FILES['avatar']
+            profile.save()
+
+            registered = True
+            messages.success(request, "You have successfully signed up!")
+            return redirect('login')
+    else:
+        user_form = UserRegisterForm()
+        profile_form = ProfileUpdateForm()
+
+    return render(request, 'uxg/signup.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'registered': registered,
+    })
 
 def profile(request):
-    return render(request, "uxg/profile.html")
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, 'Updated')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {'u_form': u_form, 'p_form': p_form}
+    return render(request, 'uxg/profile.html', context)
+def logout_view(request):
+    logout(request)
+    return redirect('uxg:index')

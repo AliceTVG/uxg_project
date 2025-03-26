@@ -27,7 +27,23 @@
             <div id="nav_list_right">
                 <a href="{% url 'uxg:signup' %}">Sign Up</a>
                 <a href="{% url 'uxg:login' %}">Login</a>
-                <img id="nav_profile_pic" onclick="redirectToProfile()" src="{% static 'images/default_profile_pic.jpg' %}" alt="Profile picture" />
+
+                {% if user.is_authenticated %}
+                    {% if user.profile.avatar %}
+                        <a href="{% url 'uxg:profile' %}">
+                            <img id="nav_profile_pic" src="{{ user.profile.avatar.url }}" alt="Profile Picture">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'uxg:profile' %}">
+                            <img id="nav_profile_pic" src="{% static 'images/default.jpg' %}" alt="Default Avatar">
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'uxg:login' %}">
+                        <img id="nav_profile_pic" src="{% static 'images/default.jpg' %}" alt="Guest Avatar">
+                    </a>
+                {% endif %}
+           
             </div>
         </nav>
 
@@ -35,6 +51,15 @@
             {% block body_block %}
             {% endblock %}
         </div>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </body>
 </html>
  
