@@ -19,7 +19,9 @@
             Tell people about yourself.
         {% endif %}
     </p>
-    <button id="bio_edit_button" onclick="editBio()">Edit</button>
+    <a href="{% url 'uxg:edit_bio' %}">
+        <button id="bio_edit_button">Edit</button>
+    </a>
 </div>
 <div id="logout_area" style="margin-top: 20px;">
     <a href="{% url 'uxg:logout' %}" id="logout_link">Logout</a>
