@@ -10,9 +10,7 @@ venv/
 *.log
 db.sqlite3
 *.sqlite3
-/media/
-/staticfiles/
-/static/
+
 
 # Environment variables
 .env
