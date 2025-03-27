@@ -29,7 +29,7 @@ SECRET_KEY = 'k&8inmn==0fey2as*ibm(m(*m%t0k(e&u=3#5-xta2+0l90bif'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['AliceTTVG.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -128,4 +128,4 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 MEDIA_URL ='/media/'
 LOGIN_REDIRECT_URL = 'index' 
 LOGOUT_REDIRECT_URL = 'login'  
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
