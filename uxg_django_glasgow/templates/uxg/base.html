@@ -30,17 +30,17 @@
 
                 {% if user.is_authenticated %}
                     {% if user.profile.avatar %}
-                        <a href="{% url 'uxg:profile' %}">
-                            <img id="nav_profile_pic" src="{{ user.profile.avatar.url }}" alt="Profile Picture">
+                        <a href="{% url 'uxg:profile' %}" class="nav_profile_pic_link">
+                            <img class="nav_profile_pic" src="{{ user.profile.avatar.url }}" alt="Profile Picture">
                         </a>
                     {% else %}
-                        <a href="{% url 'uxg:profile' %}">
-                            <img id="nav_profile_pic" src="{% static 'images/default.jpg' %}" alt="Default Avatar">
+                        <a href="{% url 'uxg:profile' %}" class="nav_profile_pic_link">
+                            <img class="nav_profile_pic" src="{% static 'images/default.jpg' %}" alt="Default Avatar">
                         </a>
                     {% endif %}
                 {% else %}
-                    <a href="{% url 'uxg:login' %}">
-                        <img id="nav_profile_pic" src="{% static 'images/default.jpg' %}" alt="Guest Avatar">
+                    <a class="nav_profile_pic_link" href="{% url 'uxg:login' %}">
+                        <img class="nav_profile_pic" src="{% static 'images/default.jpg' %}" alt="Guest Avatar">
                     </a>
                 {% endif %}
 

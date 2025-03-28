@@ -18,6 +18,7 @@ from .forms import BioForm
 
 import json
 
+@login_required
 def create_post(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
@@ -25,7 +26,7 @@ def create_post(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-            return redirect("index")  
+            return redirect('uxg:index')  
     else:
         form = PostForm()
     
@@ -134,6 +135,7 @@ def register(request):
         'registered': registered,
     })
 
+
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -151,6 +153,7 @@ def profile(request):
 
     context = {'u_form': u_form, 'p_form': p_form}
     return render(request, 'uxg/profile.html', context)
+
 def logout_view(request):
     logout(request)
     return redirect('uxg:index')

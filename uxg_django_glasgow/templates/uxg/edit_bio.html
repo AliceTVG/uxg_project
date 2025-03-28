@@ -11,6 +11,6 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
-        <a href="{% url 'uxg:profile' %}">Cancel</a>
+        <a href="{% url 'uxg:profile' %}"><button>Cancel</button></a>
     </form>
 {% endblock %}

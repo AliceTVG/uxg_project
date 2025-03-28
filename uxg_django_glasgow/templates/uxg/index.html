@@ -15,10 +15,27 @@
 
     {% for post in posts %}
         <div class="post">
-            <strong>{{ post.user.username }}</strong> - {{ post.created_at|date:"Y-m-d H:i" }}<br />
-            <p>{{ post.content }}</p>
+    
+            <div class="post_header">
+
+                {% if post.user.profile.avatar %}
+                    <img src="{{ post.user.profile.avatar.url }}" alt="Profile Picture" class="post_profile_pic">
+                {% else %}
+                    <img src="{% static 'images/default.jpg' %}" alt="Default Avatar" class="post_profile_pic">
+                {% endif %}
+
+                <h2 class="post_username"><strong>{{ post.user.username }}</strong></h2>
+                <span class="post_timestamp">- {{ post.created_at|date:"Y-m-d H:i" }} </span>
+            </div>
+
+            <div class="post_content">
+                <p>{{ post.content }}</p>
+            </div>
+
             {% if post.image %}
-                <img src="{{ post.image.url }}" alt="Post Image">
+                <div class="post_image">
+                    <img id="post_image" src="{{ post.image.url }}" alt="Post Image">
+                </div>
             {% endif %}
         </div>
 
