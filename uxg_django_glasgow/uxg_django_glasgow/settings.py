@@ -29,7 +29,7 @@ SECRET_KEY = 'k&8inmn==0fey2as*ibm(m(*m%t0k(e&u=3#5-xta2+0l90bif'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['AliceTTVG.pythonanywhere.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['alicettvg.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
