@@ -25,7 +25,7 @@ def create_post(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-            return redirect("post_list")  
+            return redirect("index")  
     else:
         form = PostForm()
     
