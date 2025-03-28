@@ -5,18 +5,22 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 /* Container styling */
 #container {
     width: 33%;
-    height: 100%;
+    min-height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     margin: auto;
     background: white;
     padding: 20px;
     text-align: center;
     font-family: Arial, sans-serif;
+    overflow: auto;
 }
 
 /* Form styling */
@@ -39,6 +43,7 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
  /* index.html styling */
 #create_new_post_button_wrapper {
     display: flex;
@@ -54,9 +59,43 @@ button:hover {
 
 .post {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
     margin: 0px;
     padding: 0px;
+}
+
+.post_header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.post_profile_pic {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post_username, .post_timestamp {
+    display: inline;
+}
+
+.post_timestamp {
+    margin-left: 5px;
+}
+
+.post_content {
+    margin-bottom: 10px;
+}
+
+.post_image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 10px;
 }
 
 .post_seperator {
@@ -70,6 +109,7 @@ button:hover {
 /* Navbar styling */
 #nav_bar {
     background-color: #005398;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -90,7 +130,8 @@ button:hover {
 
 #nav_list a, #nav_list_right a {
     color: white;
-    padding: 40px;
+    padding: 20px;
+    margin-right: 5px;
     text-decoration: none;
     font-size: 18px;
 }
@@ -116,55 +157,32 @@ button:hover {
     margin-left: -240px;
 }
 
-#nav_profile_pic {
+.nav_profile_pic_link {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    overflow: hidden;
+}
+
+.nav_profile_pic {
     width: 40px;
     height: 40px;
+    margin: 0;
+    padding: 0;
     border-radius: 50%;
-    background-color: #ccc;
     object-fit: cover;
 }
 
-#nav_profile_pic:hover {
+.nav_profile_pic:hover {
     transform: scale(1.05);
 }
 
 /* Profile bio edit styling */
-#bio_edit_button, #bio_save_button, #bio_cancel_button {
+#bio_edit_button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-}
-
-#bio_dialog_overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-#bio_dialog_box {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    text-align: center;
-}
-
-#bio_text_editer {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 14px;
-}
-
-#bio_button_group {
-    display: flex;
-    justify-content: space-between;
 }
 
 /* Profile media grid styling */
